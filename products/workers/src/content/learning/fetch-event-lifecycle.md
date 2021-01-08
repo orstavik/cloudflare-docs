@@ -16,6 +16,8 @@ Intercepts the request and allows users to send a custom response.
 
 If a `fetch` event handler does not call `respondWith()`, the runtime delivers the event to the next registered `fetch` event handler. If no event handler calls `respondWith()`, the runtime proxies the request to the origin. If the Worker is itself your origin, (always true for workers.dev sites), then you must have a `respondWith()` called for a valid response.
 
+Be aware: `respondWith()` must be called *synchronously* from the `fetch` event listener function. `respondWith()` can only be called once per `fetch` event.
+
 ## `waitUntil()`
 
 Extends the lifetime of the event using a `Promise` passed into the function. You can use this method to notify the runtime to wait for tasks, such as streaming and caching, that run longer than the usual time it takes to send a response. This is good for handling logging and analytics to third-party services, where you don’t want to block the `response`.
